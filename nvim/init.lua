@@ -31,18 +31,30 @@ require("lazy").setup({
         -- Pick one: 'default', 'atlantis', 'andromeda', 'shusia', 'maia', 'espresso'
         vim.g.sonokai_style = "maia"
 
-       -- Optional knobs (comment out if you don’t care)
+        -- Optional knobs (comment out if you don’t care)
         vim.g.sonokai_better_performance = 1
         -- vim.g.sonokai_enable_italic = 1
         -- vim.g.sonokai_disable_italic_comment = 1
         -- vim.g.sonokai_transparent_background = 1
 
+        -- High-contrast line numbers; re-apply on any :colorscheme sonokai reload
+        local group = vim.api.nvim_create_augroup("SonokaiOverrides", { clear = true })
+        vim.api.nvim_create_autocmd("ColorScheme", {
+          group = group,
+          pattern = "sonokai",
+          callback = function()
+            -- High contrast (adjust if you want even brighter)
+            vim.api.nvim_set_hl(0, "LineNr", { fg = "#d0d0d0" })
+            vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#b8b8b8" })
+            vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#b8b8b8" })
+            vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
+
+            -- Keep gutter sane across terminals/themes
+            vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
+          end,
+        })
+
         vim.cmd.colorscheme("sonokai")
-        vim.api.nvim_set_hl(0, "LineNr", { fg = "#a0a0a0", bold = false })
-        vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
-        vim.api.nvim_set_hl(0, "LineNrAbove", { fg = "#888888" })
-        vim.api.nvim_set_hl(0, "LineNrBelow", { fg = "#888888" })
-        vim.api.nvim_set_hl(0, "SignColumn", { bg = "#1e1e2e" })
       end,
     },
   },
