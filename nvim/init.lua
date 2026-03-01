@@ -19,7 +19,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Leader keys
-vim.g.mapleader = " "
+vim.g.mapleader = "<Space>" 
 vim.g.maplocalleader = "\\"
 
 -- =========================================
@@ -90,13 +90,47 @@ require("lazy").setup({
             vim.api.nvim_set_hl(0, "LineNrAbove",  { fg = "#c8c8c8" })
             vim.api.nvim_set_hl(0, "LineNrBelow",  { fg = "#c8c8c8" })
             vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#ffffff", bold = true })
-
             vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
             vim.api.nvim_set_hl(0, "CursorLine", { bg = "#1f2329" })
           end,
         })
 
         vim.cmd.colorscheme("sonokai")
+      end,
+    },
+
+    -- File icons
+    {
+      "nvim-tree/nvim-web-devicons",
+      lazy = true,
+    },
+
+    -- File tree
+    {
+      "nvim-tree/nvim-tree.lua",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      config = function()
+        -- Disable netrw (recommended)
+        vim.g.loaded_netrw = 1
+        vim.g.loaded_netrwPlugin = 1
+
+        require("nvim-tree").setup({
+          view = {
+            width = 35,
+          },
+          renderer = {
+            highlight_opened_files = "name",
+          },
+          filters = {
+            dotfiles = false,
+          },
+          git = {
+            ignore = false,
+          },
+       })
+
+        -- Keymap
+        vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
       end,
     },
   },
