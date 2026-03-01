@@ -1,0 +1,11 @@
+[Keyboard]
+RepeatDelay=215
+RepeatRate=40
+
+[Libinput][2362][628][PIXA3854:00 093A:0274 Touchpad]
+ClickMethod=2
+ScrollFactor=2
+TapToClick=false
+
+[Mouse]
+cursorTheme=capitaine-cursors
