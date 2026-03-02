@@ -37,32 +37,11 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.smartindent = true
 
--- Line numbers
--- vim.opt.number = true
--- vim.opt.relativenumber = true
-
 -- Mouse enabled (Shift + drag for terminal selection)
 vim.opt.mouse = "a"
 
 -- No system clipboard hijacking
 vim.opt.clipboard = ""
-
--- =========================================
--- UX Improvements
--- =========================================
-
--- Relative numbers in normal mode, absolute in insert mode
---vim.api.nvim_create_autocmd("InsertEnter", {
---  callback = function()
---    vim.opt.relativenumber = false
---  end,
---})
---
---vim.api.nvim_create_autocmd("InsertLeave", {
---  callback = function()
---    vim.opt.relativenumber = true
---  end,
---})
 
 -- Center screen after major jumps
 vim.keymap.set("n", "G", "Gzz")
