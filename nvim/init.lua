@@ -22,7 +22,7 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 
 -- Leader keys
-vim.g.mapleader = "<Space>" 
+vim.g.mapleader = " " 
 vim.g.maplocalleader = "\\"
 
 vim.opt.rtp:prepend(lazypath)
