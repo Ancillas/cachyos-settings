@@ -20,11 +20,12 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
     os.exit(1)
   end
 end
-vim.opt.rtp:prepend(lazypath)
 
 -- Leader keys
-vim.g.mapleader = " " 
+vim.g.mapleader = "<Space>" 
 vim.g.maplocalleader = "\\"
+
+vim.opt.rtp:prepend(lazypath)
 
 -- =========================================
 -- Basic Settings
@@ -37,8 +38,8 @@ vim.opt.expandtab = true
 vim.opt.smartindent = true
 
 -- Line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
 
 -- Mouse enabled (Shift + drag for terminal selection)
 vim.opt.mouse = "a"
@@ -51,17 +52,17 @@ vim.opt.clipboard = ""
 -- =========================================
 
 -- Relative numbers in normal mode, absolute in insert mode
-vim.api.nvim_create_autocmd("InsertEnter", {
-  callback = function()
-    vim.opt.relativenumber = false
-  end,
-})
-
-vim.api.nvim_create_autocmd("InsertLeave", {
-  callback = function()
-    vim.opt.relativenumber = true
-  end,
-})
+--vim.api.nvim_create_autocmd("InsertEnter", {
+--  callback = function()
+--    vim.opt.relativenumber = false
+--  end,
+--})
+--
+--vim.api.nvim_create_autocmd("InsertLeave", {
+--  callback = function()
+--    vim.opt.relativenumber = true
+--  end,
+--})
 
 -- Center screen after major jumps
 vim.keymap.set("n", "G", "Gzz")
@@ -112,6 +113,7 @@ require("lazy").setup({
     {
       "nvim-tree/nvim-tree.lua",
       dependencies = { "nvim-tree/nvim-web-devicons" },
+      cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeClose", "NvimTreeFindFile" },
       config = function()
         -- Disable netrw (recommended)
         vim.g.loaded_netrw = 1
@@ -131,13 +133,28 @@ require("lazy").setup({
             ignore = false,
           },
        })
-
-        -- Keymap
-        vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
       end,
     },
+
+    {
+        "shrynx/line-numbers.nvim",
+        event = "VeryLazy",
+        config = function()
+            -- Ensure NeoVim's number logic is enabled
+            vim.opt.number = true
+            vim.opt.relativenumber = true
+
+            require("line-numbers").setup({
+                modeline = "abs_rel",
+                separator = " | ",
+            })
+        end,
+    }
   },
 
   install = { colorscheme = { "sonokai", "habamax" } },
   checker = { enabled = true },
+
+  -- Keymap
+  vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 })
