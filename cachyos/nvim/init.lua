@@ -88,11 +88,15 @@ require("lazy").setup({
       lazy = true,
     },
 
-    -- File tree
+    -- nvim-tree: File tree
     {
       "nvim-tree/nvim-tree.lua",
       dependencies = { "nvim-tree/nvim-web-devicons" },
-      cmd = { "NvimTreeToggle", "NvimTreeOpen", "NvimTreeClose", "NvimTreeFindFile" },
+      
+      keys = {
+          { "<leader>e", "<cmd>NvimTreeToggle<CR>", desc = "Toggle file tree" },
+      },
+
       config = function()
         -- Disable netrw (recommended)
         vim.g.loaded_netrw = 1
@@ -134,6 +138,5 @@ require("lazy").setup({
   install = { colorscheme = { "sonokai", "habamax" } },
   checker = { enabled = true },
 
-  -- Keymap
-  vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { silent = true })
 })
+
