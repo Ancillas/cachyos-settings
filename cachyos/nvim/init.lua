@@ -43,6 +43,10 @@ vim.opt.mouse = "a"
 -- No system clipboard hijacking
 vim.opt.clipboard = ""
 
+-- Set specific keys to yank/paste to/from system clipboard
+vim.keymap.set({'n', 'v'}, '<leader>y', '"+y') -- Yank to clipboard
+vim.keymap.set({'n', 'v'}, '<leader>p', '"+p') -- Paste from clipboard
+
 -- Center screen after major jumps
 vim.keymap.set("n", "G", "Gzz")
 vim.keymap.set("n", "gg", "ggzz")
